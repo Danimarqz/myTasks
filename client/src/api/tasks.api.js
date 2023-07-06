@@ -9,6 +9,18 @@ export const getAllTasks = () => {
 
 }
 
+export const getTask = (id) => {
+    return tasksApi.get(`/${id}/`)
+}
+
 export const createTask = (task) => {
     return tasksApi.post('/', task)
+}
+
+export const delTask = (id) => {
+    return tasksApi.delete(`/${id}`)
+}
+
+export const updateTask = (id, task) => {
+    return tasksApi.put(`/${id}/`, task)
 }
