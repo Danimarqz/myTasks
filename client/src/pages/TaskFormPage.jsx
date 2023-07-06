@@ -41,6 +41,7 @@ export function TasksFormPage(){
                 const {data} = await getTask(params.id)
                 setValue('title', data.title);
                 setValue('description', data.description);
+                setValue('completed',data.completed);
                 
         }
         }
@@ -65,7 +66,7 @@ export function TasksFormPage(){
                 >
                 {errors.description && <span>This field is required</span>}
                 </textarea>
-                
+                <input type="checkbox" {...register("completed")} className='mr-2'/>
                 <button className='bg-indigo-500 p-3 rounded-lg text-white font-bold hover:bg-indigo-700 w-full mt-3 block' type='submit'>Save</button>
             </form>
             {params.id && (
