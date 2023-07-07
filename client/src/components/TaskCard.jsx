@@ -30,10 +30,8 @@ export function TaskCard({ task }) {
   });
 
   function actualizarDatos(id, title, completed, e) {
-    e.preventDefault();
     updateTask(id, { title: title, completed: !completed }).then((response) => {
-      //Buscar forma de NO usar esto
-      //window.location.reload();
+
     });
   }
   return (
@@ -49,12 +47,12 @@ export function TaskCard({ task }) {
         </div>
         <div>
           <form onSubmit={onSubmit}>
-            <input
+            <input 
               type='checkbox'
-              checked={task.completed}
-              onChange={(e) =>
-                // Miss argument so "actualizarDatos" wasn't enable to found e to execute e.preventDefaults()
-                actualizarDatos(task.id, task.title, task.completed, e)
+              //The key for the checkbox to work with the put :)
+              defaultChecked={task.completed}
+              onClick={() =>
+                actualizarDatos(task.id, task.title, task.completed)
               }
             ></input>
           </form>
