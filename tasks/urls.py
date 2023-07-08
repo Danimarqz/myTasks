@@ -10,5 +10,6 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('docs/', include_docs_urls(title='Tasks API')),
     path('home/', views.HomeView.as_view(), name ='home'),
-    path('logout/', views.LogoutView.as_view(), name ='logout')
+    path('logout/', views.LogoutView.as_view(), name ='logout'),
+    path('register/', views.CreateUserView.as_view(), name ='register')
 ]
