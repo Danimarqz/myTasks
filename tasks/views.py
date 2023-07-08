@@ -7,13 +7,23 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 
 # Create your views here.
 class TaskView(viewsets.ModelViewSet):
-         
+    
     permission_classes = (IsAuthenticated, )
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
+
+    def post(self, request):
+        author_id = request.user
+
+        request.data['author_id'] = author_id
+        TaskSerializer(data=request.data).is_valid(raise_exception=True)
+        TaskSerializer.save()
 
 class HomeView(APIView):
      
@@ -47,3 +57,13 @@ class CreateUserView(APIView):
        return Response(status=status.HTTP_201_CREATED)
    def get_extra_actions(self):
        return []
+   
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+
+        data['username'] = self.user.id
+        return data
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
