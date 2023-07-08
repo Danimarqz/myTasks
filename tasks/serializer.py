@@ -6,8 +6,8 @@ class TaskSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Task
-        # fields = ('id', 'title', 'description', 'completed', 'author')
-        fields = '__all__'
+        fields = ('id', 'title', 'description', 'completed', 'author')
+        # fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
 

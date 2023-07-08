@@ -24,12 +24,15 @@ class TaskView(viewsets.ModelViewSet):
         request.data['author_id'] = author_id
         TaskSerializer(data=request.data).is_valid(raise_exception=True)
         TaskSerializer.save()
+    
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(author_id=user)
 
 class HomeView(APIView):
-     
-   permission_classes = (IsAuthenticated, )
-   
-   def get(self, request):
+    permission_classes = (IsAuthenticated, )
+    # print(userserlia)
+    def get(self, request):
        content = {'message': 'Welcome to the JWT Authentication page using React Js and Django!'}
        return Response(content)
    
@@ -63,7 +66,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
 
-        data['username'] = self.user.id
+        data['user_id'] = self.user.id
         return data
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer

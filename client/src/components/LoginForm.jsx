@@ -25,6 +25,8 @@ export function LoginForm () {
 
         localStorage.setItem('refresh_token', data.refresh);
 
+        localStorage.setItem('user_id', data.user_id);
+
         window.location.href = '/tasks';
     }
     

@@ -21,8 +21,7 @@ export function TasksList(){
             try{
                 await loadUserProfile()
                 const res = await getAllTasks()
-                const filteredTasks = res.data.filter(tasks => tasks.author_id === userId); // Filtrar las tareas por el usuario autenticado
-                setTasks(filteredTasks)
+                setTasks(res)
                 console.log(tasks.author_id)
         }catch (err){
             console.log(err)
