@@ -66,6 +66,8 @@ export function TasksFormPage(){
                 >
                 {errors.description && <span>This field is required</span>}
                 </textarea>
+                <p>You are not going to create a task thas is already completed, right?</p>
+                <span className='pr-3'>Just in case... Completed?</span>
                 <input type="checkbox" {...register("completed")} className='mr-2'/>
                 <button className='bg-indigo-500 p-3 rounded-lg text-white font-bold hover:bg-indigo-700 w-full mt-3 block' type='submit'>Save</button>
             </form>

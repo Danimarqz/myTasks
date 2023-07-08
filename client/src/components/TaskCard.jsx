@@ -29,24 +29,25 @@ export function TaskCard({ task }) {
     }
   });
 
-  function actualizarDatos(id, title, completed, e) {
+  function actualizarDatos(id, title, completed) {
     updateTask(id, { title: title, completed: !completed }).then((response) => {
 
     });
   }
   return (
-    <>
+    <div className="flex flex-col">
       <div className='bg-zinc-800 p-3 hover:bg-zinc-700 rounded-md hover:cursor-pointer'>
-        <div
+        <div 
           onClick={() => {
             navigate(`/tasks/${task.id}`);
           }}
         >
           <h1 className='text-white font-bold text-xl'>{task.title}</h1>
-          <p className='text-white text-sm'>{task.description}</p>
+          <p className='text-white text-sm max-h-9 hover:max-h-full overflow-hidden'>{task.description}</p>
         </div>
-        <div>
+        <div className="mt-auto flex items-center pt-3">
           <form onSubmit={onSubmit}>
+            <span className="pr-3 text-blue-500 hover:text-blue-700">Completed?</span>
             <input 
               type='checkbox'
               //The key for the checkbox to work with the put :)
@@ -58,6 +59,6 @@ export function TaskCard({ task }) {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
