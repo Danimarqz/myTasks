@@ -1,10 +1,15 @@
 import axios from 'axios'
 
 const tasksApi = axios.create({
-    baseURL: 'http://localhost:8000/tasks/api/v1/tasks'
+    baseURL: 'http://localhost:8000/tasks/api/v1/tasks',
+    headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}
 })
+// const loginApi = axios.create({
+//     baseURL: 'http://localhost:8000/token/'
+// })
 
 export const getAllTasks = () => {
+    
     return tasksApi.get('/')
 
 }

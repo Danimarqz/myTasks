@@ -21,7 +21,7 @@ export function RegisterForm () {
             Register
             </button>
             <span>Have an account already?</span>
-            <Link to="/">
+            <Link to="/login">
             <button className='bg-red-500 px-3 py-2 rounded-lg m-3 hover:bg-red-700'>
             Log in!
             </button>

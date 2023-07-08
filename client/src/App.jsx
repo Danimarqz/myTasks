@@ -13,7 +13,8 @@ function App() {
   <div className='container mx-auto'>
     <Navigation />
       <Routes>
-      <Route path="/" element={<TaskLogin/>} />
+      <Route path="/login" element={<TaskLogin/>} />
+      <Route path="/logout" element={<TaskLogin/>} />
       <Route path="/register" element={<TaskRegister/>} />
       <Route path="/tasks" element={<TasksPage />} />
       <Route path="/tasks-create" element={<TasksFormPage />} />
