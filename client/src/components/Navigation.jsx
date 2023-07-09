@@ -6,8 +6,11 @@ export function Navigation(){
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
            setIsAuth(true); 
+         } else {
+            setIsAuth(false);
          }
        }, [isAuth]);
+
     return (
         <div className='flex justify-between py-3'>
             <Link to="/tasks">

@@ -5,8 +5,9 @@ import axios from 'axios'
 export function TasksPage(){
     const [message, setMessage] = useState('');
     
+    useEffect(() => {
        if(localStorage.getItem('token') === null){                   
-           window.location.href = '/login'
+           window.location.href = '/login';
        }
        else{
         (async () => {
@@ -18,10 +19,12 @@ export function TasksPage(){
                             , withCredentials: true});
             setMessage(data.message);
          } catch (e) {
-           console.log(e)
+           console.log(e);
           //  window.location.href = '/login';
          }
-        })()};
+        })();
+      }
+    }, []);
     
-    return <TasksList />;
+    return <TasksList tasks={message} />;
 }

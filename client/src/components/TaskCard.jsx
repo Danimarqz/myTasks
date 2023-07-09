@@ -1,15 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { updateTask } from "../api/tasks.api";
 
 export function TaskCard({ task }) {
   const navigate = useNavigate();
 
+  const { id } = useParams();
+
   const { handleSubmit } = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
-    if (params.id) {
-      await updateTask(params.id, data);
+    if (id) {
+      await updateTask(id, data);
       toast.success("Task updated successfully!", {
         position: "bottom-right",
         style: {
