@@ -9,6 +9,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.db import IntegrityError
 
 
 # Create your views here.
@@ -52,12 +53,17 @@ class LogoutView(APIView):
 class CreateUserView(APIView):
      
    def post(self, request):
-       user = request.data
-       username = user["username"]
-       password = user["password"]
-       user = User.objects.create_user(username=username, password=password)
-       user.save()
-       return Response(status=status.HTTP_201_CREATED)
+        try:
+            user = request.data
+            username = user["username"]
+            password = user["password"]
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            
+        except IntegrityError as e:
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+       
+       
    def get_extra_actions(self):
        return []
    

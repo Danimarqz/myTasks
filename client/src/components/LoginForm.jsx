@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom"
 import axios from "axios";
+import { toast} from "react-hot-toast";
 
 export function LoginForm () {
     const [username,setUsername] = useState('')
@@ -14,21 +15,39 @@ export function LoginForm () {
             password: password
         };
 
-        const {data} = await axios.post('http://localhost:8000/token/', 
+        await axios.post('http://localhost:8000/token/', 
         user ,{headers: 
         {'Content-Type': 'application/json'},
-         withCredentials: true});
+        withCredentials: true}).then(res => {
+            
+            if (res.status === 200) {
+                toast.success('Login Successful', {
+                    position: 'top-center',
+                    style: {
+                        background: '#101010',
+                        color: '#fff'
+                    }
+                })
+                localStorage.clear();
 
-        localStorage.clear();
-
-        localStorage.setItem('token', data.access);
-
-        localStorage.setItem('refresh_token', data.refresh);
-
-        localStorage.setItem('user_id', data.user_id);
-
-        window.location.href = '/tasks';
-    }
+                localStorage.setItem('token', res.data.access);
+        
+                localStorage.setItem('refresh_token', res.data.refresh);
+        
+                localStorage.setItem('user_id', res.data.user_id);
+        
+                window.location.href = '/tasks';  
+            }
+        }).catch(err => {
+            toast.error('Invalid Credentials', {
+                position: 'top-center',
+                style: {
+                    background: '#101010',
+                    color: 'red'
+                }
+            })
+    })
+}
     
     return (
         <div className='max-w-xl mx-auto'>

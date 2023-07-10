@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { Link } from "react-router-dom"
+import { useState } from 'react';
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast} from "react-hot-toast";
 
 export function RegisterForm () {
     const [username,setUsername] = useState('')
@@ -15,12 +16,38 @@ export function RegisterForm () {
     await axios.post('http://localhost:8000/register/', 
     user ,{headers: 
     {'Content-Type': 'application/json'},
-    });
+    }).then(async res => {
+        if (res.status === 201) {
+            await axios.post('http://localhost:8000/token/',
+            user ,{headers: 
+                {'Content-Type': 'application/json'},
+                 withCredentials: true}).then(response => {
+                    localStorage.clear();
+
+                    localStorage.setItem('token', response.data.access);
+        
+                    localStorage.setItem('refresh_token', response.data.refresh);
+        
+                    localStorage.setItem('user_id', response.data.user_id);
+        
+                    window.location.href = '/tasks';
+                 });
+        }}).catch(err => {
+            toast.error('Username already exists', {
+                position: 'top-center',
+                style: {
+                    background: '#101010',
+                    color: 'red'
+    
+                },
+            })
+        })
+    };
 
     //To-do add auto-login
 
-    window.location.href = '/login';
-    }
+    // window.location.href = '/login';
+    
     return (
         <div className='max-w-xl mx-auto'>
             <form onSubmit={submit}>
