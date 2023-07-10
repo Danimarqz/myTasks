@@ -17,6 +17,8 @@ export function RegisterForm () {
     {'Content-Type': 'application/json'},
     });
 
+    //To-do add auto-login
+
     window.location.href = '/login';
     }
     return (
@@ -40,9 +42,9 @@ export function RegisterForm () {
                     required
                     onChange={e=> setPassword(e.target.value)}
                 />
-            <button type="submit" className='bg-indigo-500 px-3 py-2 rounded-lg w-full hover:bg-indigo-700'>
-            Register
-            </button>
+            <input type="button" onClick={submit} value="Register" className='bg-indigo-500 px-3 py-2 rounded-lg w-full hover:bg-indigo-700'>
+            
+            </input>
             </form>
             <span>Have an account already?</span>
             <Link to="/login">
