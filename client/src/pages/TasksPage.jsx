@@ -13,7 +13,7 @@ export function TasksPage(){
         (async () => {
           try {
             const {data} = await axios.get(   
-                           'http://localhost:8000/tasks/home/', {
+                           'https://darkhaiass.pythonanywhere.com/tasks/home/', {
                             headers: 
                             {'Authorization': `Bearer ${localStorage.getItem('token')}`}
                             , withCredentials: true});

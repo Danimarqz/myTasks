@@ -15,7 +15,7 @@ export function LoginForm () {
             password: password
         };
 
-        await axios.post('http://localhost:8000/token/', 
+        await axios.post('https://darkhaiass.pythonanywhere.com/token/', 
         user ,{headers: 
         {'Content-Type': 'application/json'},
         withCredentials: true}).then(res => {

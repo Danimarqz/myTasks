@@ -1,12 +1,9 @@
 import axios from 'axios'
 
 const tasksApi = axios.create({
-    baseURL: 'http://localhost:8000/tasks/api/v1/tasks',
+    baseURL: 'https://darkhaiass.pythonanywhere.com/tasks/api/v1/tasks',
     headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}
-})
-// const loginApi = axios.create({
-//     baseURL: 'http://localhost:8000/token/'
-// })
+});
 
 export const getAllTasks = () => {
     
@@ -28,4 +25,8 @@ export const delTask = (id) => {
 
 export const updateTask = (id, task) => {
     return tasksApi.put(`/${id}/`, task)
+}
+
+export const token = () => {
+    return tasksApi.get('/home')
 }
