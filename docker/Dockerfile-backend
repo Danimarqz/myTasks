@@ -1,0 +1,14 @@
+FROM python:3.11
+
+COPY ../.pg_service.conf /home/
+
+WORKDIR /myTasks
+COPY ../requirements.txt .
+
+RUN pip install --upgrade pip
+RUN pip install gunicorn
+RUN pip install -r /myTasks/requirements.txt
+
+COPY .. .
+
+RUN chmod +x manage.py

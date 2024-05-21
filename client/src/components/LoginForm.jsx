@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom"
-import axios from "axios";
 import { toast} from "react-hot-toast";
+import {loginUser} from "../api/tasks.api.js";
 
 export function LoginForm () {
     const [username,setUsername] = useState('')
@@ -15,10 +15,7 @@ export function LoginForm () {
             password: password
         };
 
-        await axios.post('http://localhost:8000/token/', 
-        user ,{headers: 
-        {'Content-Type': 'application/json'},
-        withCredentials: true}).then(res => {
+        await loginUser(user).then(res => {
             
             if (res.status === 200) {
                 toast.success('Login Successful', {
@@ -46,6 +43,7 @@ export function LoginForm () {
                     color: 'red'
                 }
             })
+            console.warn(err);
     })
 }
     

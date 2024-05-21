@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','react','frontend']
 
 
 # Application definition
@@ -85,12 +85,11 @@ WSGI_APPLICATION = 'django_crud_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': config('DB_ENGINE'),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-        'CONN_MAX_AGE': 500,
+        'NAME': 'mytasks_db',
+        'USER': 'darkhaiass',
+        'PASSWORD': 'darkhaiass',
+        'HOST': 'psql',
+        'PORT': '5432'
     }
 }
 

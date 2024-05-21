@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { toast} from "react-hot-toast";
+import {loginUser, registerUser} from "../api/tasks.api.js";
 
 export function RegisterForm () {
     const [username,setUsername] = useState('')
@@ -13,15 +13,9 @@ export function RegisterForm () {
         password: password
     };
 
-    await axios.post('http://localhost:8000/register/', 
-    user ,{headers: 
-    {'Content-Type': 'application/json'},
-    }).then(async res => {
+    await registerUser(user).then(async res => {
         if (res.status === 201) {
-            await axios.post('http://localhost:8000/token/',
-            user ,{headers: 
-                {'Content-Type': 'application/json'},
-                 withCredentials: true}).then(response => {
+            await loginUser(user).then(response => {
                     localStorage.clear();
 
                     localStorage.setItem('token', response.data.access);
@@ -41,6 +35,7 @@ export function RegisterForm () {
     
                 },
             })
+        console.warn(err);
         })
     };
 

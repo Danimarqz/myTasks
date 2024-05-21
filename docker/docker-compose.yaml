@@ -1,0 +1,53 @@
+services:
+    db:
+      image: postgres:latest
+      restart: always
+      container_name: psql
+      environment:
+        POSTGRES_USER: 'darkhaiass'
+        POSTGRES_PASSWORD: 'darkhaiass'
+      networks:
+        - backend
+      volumes:
+        - ./pgconf/:/etc/postgresql-common/
+        - ../init_psql/:/docker-entrypoint-initdb.d
+        - mytasks_db:/var/lib/postgresql/data
+
+    backend:
+      build:
+        context: ..
+        dockerfile: ./docker/Dockerfile-backend
+      container_name: django
+      entrypoint: ./docker/wsgi-entrypoint.sh
+      restart: always
+      expose:
+        - 8000
+      depends_on:
+        - db
+      networks:
+        - backend
+        - frontend
+
+    frontend:
+        build:
+          context: ..
+          dockerfile: ./docker/Dockerfile-frontend
+        container_name: react
+        restart: always
+        volumes:
+          - ./../client/dist/:/usr/share/nginx/html
+        depends_on:
+          - backend
+          - db
+        networks:
+          - frontend
+        ports:
+          - 80:80
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+volumes:
+  mytasks_db:
+    driver: local
