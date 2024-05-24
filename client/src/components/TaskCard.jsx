@@ -33,7 +33,7 @@ export function TaskCard({ task }) {
 
   function actualizarDatos(id, title, completed) {
     updateTask(id, { title: title, completed: !completed }).then((response) => {
-
+        return response.status;
     });
   }
   return (

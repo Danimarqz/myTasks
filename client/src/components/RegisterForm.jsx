@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-hot-toast";
+import { loginUser, registerUser } from '../api/auth.api';
 
 export function RegisterForm () {
     const [username, setUsername] = useState('');
@@ -16,19 +16,10 @@ export function RegisterForm () {
         };
 
         try {
-            //place all this axios methods in auth.api.js
-            const res = await axios.post('https://darkhaiass.pythonanywhere.com/register/', 
-            user, {
-                headers: {'Content-Type': 'application/json'},
-                withCredentials: true
-            });
+            const res = await registerUser(user);
 
             if (res.status === 201) {
-                const response = await axios.post('https://darkhaiass.pythonanywhere.com/token/',
-                user, {
-                    headers: {'Content-Type': 'application/json'},
-                    withCredentials: true
-                });
+                const response = loginUser(user);
 
                 localStorage.clear();
                 localStorage.setItem('token', response.data.access);
