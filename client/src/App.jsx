@@ -12,8 +12,8 @@ function App() {
   return(
   <BrowserRouter>
   <div className='container mx-auto'>
-    <Navigation />
       <Routes>
+      <Route path="/" element={<Navigation/>} />
       <Route path="/login" element={<TaskLogin/>} />
       <Route path="/logout" element={<TaskLogout/>} />
       <Route path="/register" element={<TaskRegister/>} />
