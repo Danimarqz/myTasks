@@ -1,5 +1,5 @@
-import { LoginPrompt } from "./LoginPrompt";
-import { Footer } from "./Footer";
+import { LoginPrompt } from "../components/LoginPrompt";
+import { Footer } from "../components/Footer";
 
 export function Index() {
 

@@ -3,7 +3,7 @@ import { TasksPage } from "./pages/TasksPage";
 import { TasksFormPage } from "./pages/TaskFormPage";
 import { TaskLogin } from "./pages/TaskLogin"
 import { TaskRegister } from "./pages/TaskRegister";
-import {Index} from "./components/Index";
+import {Index} from "./pages/Index";
 import {Toaster} from "react-hot-toast";
 import { TaskLogout } from "./pages/TaskLogout";
 import { Header } from "./components/Header";
