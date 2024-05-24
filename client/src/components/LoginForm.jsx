@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { loginUser } from '../api/auth.api';
 
 export function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const submit = async (e) => {
         e.preventDefault();
@@ -18,7 +19,8 @@ export function LoginForm() {
         try {
             const res = await loginUser(user);
 
-            if (res.status === 200) {
+            // Check if the required fields are present in the response data
+            if (res.access && res.refresh && res.user_id) {
                 toast.success('Login Successful', {
                     position: 'top-center',
                     style: {
@@ -32,9 +34,12 @@ export function LoginForm() {
                 localStorage.setItem('refresh_token', res.refresh);
                 localStorage.setItem('user_id', res.user_id);
 
-                window.location.href = '/tasks';
+                navigate('/tasks');  // Use navigate for redirection
+            } else {
+                throw new Error('Unexpected response data');
             }
         } catch (err) {
+            console.error('Login error:', err);
             toast.error('Invalid Credentials', {
                 position: 'top-center',
                 style: {

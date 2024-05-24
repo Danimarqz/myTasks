@@ -10,7 +10,7 @@ export function TasksList(){
         async function loadTasks(){
             try{
                 const res = await getAllTasks()
-                setTasks(res.data)
+                setTasks(res)
             
         }catch (err){
             console.log(err)
