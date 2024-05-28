@@ -1,11 +1,12 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { updateTask } from "../api/tasks.api";
+import { createTask, updateTask } from "../api/tasks.api";
+import toast from "react-hot-toast";
 
-export function TaskCard({ task }) {
+export function TaskCard({ id, task }) {
   const navigate = useNavigate();
 
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const { handleSubmit } = useForm();
 
@@ -31,8 +32,8 @@ export function TaskCard({ task }) {
     }
   });
 
-  function actualizarDatos(id, title, completed) {
-    updateTask(id, { title: title, completed: !completed }).then((response) => {
+  function actualizarDatos(id, title, description, completed) {
+    updateTask(id, { title: title, description: description, completed: !completed }).then((response) => {
         return response.status;
     });
   }
@@ -55,7 +56,7 @@ export function TaskCard({ task }) {
               //The key for the checkbox to work with the put :)
               defaultChecked={task.completed}
               onClick={() =>
-                actualizarDatos(task.id, task.title, task.completed)
+                actualizarDatos(task.id, task.description, task.title, task.completed)
               }
             ></input>
           </form>

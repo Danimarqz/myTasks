@@ -38,10 +38,12 @@ export function TasksFormPage(){
     useEffect(() => {
         async function loadTask(){
             if (params.id) {
-                const {data} = await getTask(params.id)
-                setValue('title', data.title);
-                setValue('description', data.description);
-                setValue('completed',data.completed);
+                await getTask(params.id).then( res =>{
+
+                    setValue('title', res.title);
+                    setValue('description', res.description);
+                    setValue('completed',res.completed);
+                })
                 
         }
         }

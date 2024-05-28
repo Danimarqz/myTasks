@@ -8,15 +8,8 @@ export function TasksList(){
 
     useEffect(() => {
         async function loadTasks(){
-            try{
-                const res = await getAllTasks()
-                setTasks(res)
-            
-        }catch (err){
-            console.log(err)
-        
-        }
-    }
+                await getAllTasks().then(res => setTasks(res));
+            }
         loadTasks()
     }, [])
     
@@ -25,6 +18,7 @@ export function TasksList(){
            {tasks.map(task=> (
                 <TaskCard key={task.id} task={task} />  
              ))}
+             
         </div>
     )
 }
