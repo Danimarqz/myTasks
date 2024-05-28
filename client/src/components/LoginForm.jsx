@@ -17,27 +17,29 @@ export function LoginForm() {
         };
 
         try {
-            const res = await loginUser(user);
+            await loginUser(user).then(res => {
+                if (res.access && res.refresh && res.user_id) {
+                    toast.success('Login Successful', {
+                        position: 'top-center',
+                        style: {
+                            background: '#101010',
+                            color: '#fff'
+                        }
+                    });
+    
+                    localStorage.clear();
+                    localStorage.setItem('token', res.access);
+                    localStorage.setItem('refresh_token', res.refresh);
+    
+                    navigate('/tasks');  // Use navigate for redirection
+                } else {
+                    throw new Error('Unexpected response data');
+                }
+            })
 
             // Check if the required fields are present in the response data
-            if (res.access && res.refresh && res.user_id) {
-                toast.success('Login Successful', {
-                    position: 'top-center',
-                    style: {
-                        background: '#101010',
-                        color: '#fff'
-                    }
-                });
-
-                localStorage.clear();
-                localStorage.setItem('token', res.access);
-                localStorage.setItem('refresh_token', res.refresh);
-                localStorage.setItem('user_id', res.user_id);
-
-                navigate('/tasks');  // Use navigate for redirection
-            } else {
-                throw new Error('Unexpected response data');
-            }
+            
+            
         } catch (err) {
             console.error('Login error:', err);
             toast.error('Invalid Credentials', {

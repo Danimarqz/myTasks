@@ -16,18 +16,19 @@ export function RegisterForm () {
         };
 
         try {
-            const res = await registerUser(user);
+            await registerUser(user).then(res => {
+                
+                if (res.status === 201) {
+                    const response = loginUser(user);
+    
+                    localStorage.clear();
+                    localStorage.setItem('token', response.data.access);
+                    localStorage.setItem('refresh_token', response.data.refresh);
+    
+                    window.location.href = '/tasks';
+                }
+            })
 
-            if (res.status === 201) {
-                const response = loginUser(user);
-
-                localStorage.clear();
-                localStorage.setItem('token', response.data.access);
-                localStorage.setItem('refresh_token', response.data.refresh);
-                localStorage.setItem('user_id', response.data.user_id);
-
-                window.location.href = '/tasks';
-            }
         } catch (err) {
             toast.error('Username already exists or another error occurred', {
                 position: 'top-center',
