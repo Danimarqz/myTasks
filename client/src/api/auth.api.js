@@ -5,14 +5,14 @@ const authApi = axios.create({
     baseURL: import.meta.env.VITE_API,
     headers: {
         'Content-Type': 'application/json',
-        'X-API-KEY': import.meta.env.VITE_API_KEY},
+        'X-API-KEY': import.meta.env.VITE_API_KEY,
+    },
     withCredentials: true
 });
 
 export const loginUser = async (user) => {
     try {
         const encryptedData = encrypt(user)
-        console.log(import.meta.env.VITE_CORS)
         const response = await authApi.post('/auth', encryptedData);
         return response.data;
     } catch (error) {

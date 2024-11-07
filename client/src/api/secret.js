@@ -1,6 +1,6 @@
 export async function encrypt(text) {
     const textBuffer = new TextEncoder().encode(text);
-    const keyBuffer = new TextEncoder().encode(import.meta.env.CRYPTO_KEY);
+    let keyBuffer = new TextEncoder().encode(import.meta.env.VITE_CRYPTO_KEY);
 
     const cryptoKey = await crypto.subtle.importKey(
         'raw', keyBuffer, { name: 'AES-CBC' }, false, ['encrypt']
