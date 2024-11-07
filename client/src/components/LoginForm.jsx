@@ -15,7 +15,6 @@ export function LoginForm() {
             username,
             password
         };
-
         try {
             await loginUser(user).then(res => {
                 if (res.access && res.refresh && res.user_id) {
@@ -26,10 +25,6 @@ export function LoginForm() {
                             color: '#fff'
                         }
                     });
-    
-                    localStorage.clear();
-                    localStorage.setItem('token', res.access);
-                    localStorage.setItem('refresh_token', res.refresh);
     
                     navigate('/tasks');  // Use navigate for redirection
                 } else {
